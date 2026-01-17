@@ -8,10 +8,13 @@
         :root {
             --primary: #2563eb;
             --secondary: #1e40af;
+            --accent: #3b82f6;
             --bg: #f8fafc;
             --text: #1e293b;
             --muted: #64748b;
             --border: #e2e8f0;
+            --success: #10b981;
+            --warning: #f59e0b;
         }
 
         * {
@@ -28,7 +31,7 @@
         }
 
         .container {
-            max-width: 900px;
+            max-width: 1000px;
             margin: 0 auto;
             padding: 2rem;
         }
@@ -93,10 +96,14 @@
             transform: translateY(-2px);
         }
 
-        .btn-disabled {
-            background: rgba(255,255,255,0.3);
+        .btn-secondary {
+            background: rgba(255,255,255,0.2);
             color: white;
-            cursor: not-allowed;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.3);
         }
 
         section {
@@ -108,11 +115,17 @@
         }
 
         h2 {
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             color: var(--primary);
             margin-bottom: 1rem;
             padding-bottom: 0.5rem;
             border-bottom: 2px solid var(--border);
+        }
+
+        h3 {
+            font-size: 1.1rem;
+            color: var(--text);
+            margin: 1.5rem 0 0.8rem 0;
         }
 
         .abstract {
@@ -120,76 +133,172 @@
             color: var(--text);
         }
 
-        .teaser {
+        .figure {
             text-align: center;
-            margin: 1rem 0;
+            margin: 1.5rem 0;
         }
 
-        .teaser img {
+        .figure img {
             max-width: 100%;
             border-radius: 8px;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
 
-        .teaser-caption {
+        .figure-caption {
             font-size: 0.9rem;
             color: var(--muted);
-            margin-top: 0.5rem;
+            margin-top: 0.8rem;
+            text-align: center;
         }
 
-        .coming-soon {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 3rem;
-            background: #f1f5f9;
+        .highlight-box {
+            background: linear-gradient(135deg, #dbeafe 0%, #ede9fe 100%);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin: 1.5rem 0;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 1.2rem;
             border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
             color: var(--muted);
-            font-size: 1.1rem;
+            margin-top: 0.3rem;
         }
 
-        .coming-soon-badge {
-            background: var(--primary);
-            color: white;
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            margin-left: 0.5rem;
+        .method-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-top: 1rem;
         }
 
-        .highlight {
-            background: #dbeafe;
-            padding: 1rem;
+        .method-card {
+            background: #f8fafc;
+            padding: 1.2rem;
             border-radius: 8px;
             border-left: 4px solid var(--primary);
+        }
+
+        .method-card h4 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .method-card p {
+            font-size: 0.85rem;
+            color: var(--muted);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
             margin: 1rem 0;
+            font-size: 0.9rem;
         }
 
-        .highlight strong {
-            color: var(--primary);
-        }
-
-        .contributions {
-            list-style: none;
-        }
-
-        .contributions li {
-            padding: 0.8rem 0;
+        th, td {
+            padding: 0.8rem;
+            text-align: left;
             border-bottom: 1px solid var(--border);
-            display: flex;
-            align-items: flex-start;
-            gap: 0.8rem;
         }
 
-        .contributions li:last-child {
-            border-bottom: none;
+        th {
+            background: #f1f5f9;
+            font-weight: 600;
+            color: var(--text);
         }
 
-        .contributions li::before {
-            content: "✓";
+        tr:hover {
+            background: #f8fafc;
+        }
+
+        .best {
+            font-weight: 700;
             color: var(--primary);
-            font-weight: bold;
-            flex-shrink: 0;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .badge-coming {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .resource-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .resource-card {
+            background: #f8fafc;
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+            transition: all 0.2s;
+        }
+
+        .resource-card:hover {
+            background: #f1f5f9;
+            transform: translateY(-2px);
+        }
+
+        .resource-card a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .resource-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .resource-title {
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 0.3rem;
+        }
+
+        .resource-desc {
+            font-size: 0.8rem;
+            color: var(--muted);
+        }
+
+        pre {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-size: 0.85rem;
         }
 
         footer {
@@ -199,10 +308,12 @@
             font-size: 0.9rem;
         }
 
-        @media (max-width: 600px) {
+        @media (max-width: 768px) {
             h1 { font-size: 1.4rem; }
             .container { padding: 1rem; }
             section { padding: 1.5rem; }
+            .method-grid, .resource-grid { grid-template-columns: 1fr; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
         }
     </style>
 </head>
@@ -218,81 +329,244 @@
                 <sup>1</sup>The University of Tokyo &nbsp;&nbsp; <sup>2</sup>TIER IV, Inc.
             </div>
             <div class="buttons">
-                <a href="#" class="btn btn-disabled">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm4 18H6V4h7v5h5v11z"/></svg>
-                    Paper (Coming Soon)
+                <a href="#" class="btn btn-secondary">
+                    📄 Paper (Coming Soon)
                 </a>
-                <a href="#" class="btn btn-disabled">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-                    Code (Coming Soon)
-                </a>
-                <a href="#" class="btn btn-disabled">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20 6h-8l-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 12H4V8h16v10z"/></svg>
-                    Dataset (Coming Soon)
+                <a href="https://github.com/LiYun0607/pl-dpo-dyn-beta-nll" class="btn btn-primary">
+                    💻 GitHub
                 </a>
             </div>
         </div>
     </header>
 
     <main class="container">
+        <!-- Abstract -->
         <section>
             <h2>Abstract</h2>
             <p class="abstract">
-                Safe autonomous driving demands that learned policies maintain high confidence in safe actions, yet this critical property is often violated during preference-based training. Vision-Language-Action (VLA) models have emerged as promising end-to-end driving agents, but they struggle with safety alignment due to imbalanced training data and <em>probability collapse</em>, where the likelihood of safe actions decreases during optimization. We propose <strong>Plackett-Luce DPO with NLL Regularization (PL-DPO-NLL)</strong>, a preference learning framework for safety-aligned driving. Our method introduces three synergistic innovations: (1) Plackett-Luce multi-preference ranking that learns from multiple rejected actions ranked by risk severity, (2) scene-adaptive β weighting that amplifies gradients for critical scenarios, and (3) NLL regularization that explicitly maintains chosen action probability. On CARLA closed-loop benchmark, PL-DPO-NLL achieves <strong>8.4% improvement</strong> in driving score with the highest route completion (65.9%) and infraction penalty (89.1%), outperforming DPO variants including IPO, EXO, BCO, and SPPO.
+                Safe autonomous driving demands that learned policies maintain high confidence in safe actions, yet this critical property is often violated during preference-based training. Vision-Language-Action (VLA) models have emerged as promising end-to-end driving agents, but they struggle with safety alignment due to imbalanced training data and <em>probability collapse</em>, where the likelihood of safe actions decreases during optimization. We propose <strong>Plackett-Luce DPO with NLL Regularization (PL-DPO-NLL)</strong>, a preference learning framework for safety-aligned driving. Our method introduces three synergistic innovations: (1) Plackett-Luce multi-preference ranking that learns from multiple rejected actions ranked by risk severity, (2) scene-adaptive β weighting that amplifies gradients for critical scenarios, and (3) NLL regularization that explicitly maintains chosen action probability.
             </p>
         </section>
 
+        <!-- Key Results -->
         <section>
             <h2>Key Results</h2>
-            <div class="highlight">
-                <strong>8.4% improvement</strong> in driving score over SFT baseline on CARLA closed-loop benchmark
-            </div>
-            <ul class="contributions">
-                <li><strong>Highest Route Completion (65.9%)</strong> — NLL regularization prevents the model from "forgetting" successful driving patterns</li>
-                <li><strong>Best Infraction Penalty (89.1%)</strong> — Plackett-Luce ranking enables fine-grained safety distinctions</li>
-                <li><strong>Outperforms 6 DPO variants</strong> — Including IPO, EXO, BCO, SPPO, and standard DPO</li>
-            </ul>
-        </section>
-
-        <section>
-            <h2>Framework</h2>
-            <div class="teaser">
-                <!-- Replace with your actual framework figure -->
-                <div class="coming-soon">
-                    Framework figure coming soon
-                    <span class="coming-soon-badge">After Acceptance</span>
+            <div class="highlight-box">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value">+8.4%</div>
+                        <div class="stat-label">Driving Score Improvement</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">65.9%</div>
+                        <div class="stat-label">Route Completion</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">89.1%</div>
+                        <div class="stat-label">Infraction Penalty</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">6</div>
+                        <div class="stat-label">DPO Variants Outperformed</div>
+                    </div>
                 </div>
             </div>
-            <p class="teaser-caption">
-                Overview of our PL-DPO-NLL framework: frozen visual encoders, trainable LoRA adapter, and the training pipeline with Plackett-Luce ranking, scene-adaptive β, and NLL regularization.
-            </p>
         </section>
 
+        <!-- Method Overview -->
         <section>
-            <h2>Resources</h2>
-            <div class="coming-soon">
-                Code, checkpoints, and dataset will be released upon paper acceptance.
-                <span class="coming-soon-badge">Coming Soon</span>
+            <h2>Method Overview</h2>
+            <div class="figure">
+                <img src="assets/figures/framework.png" alt="PL-DPO-NLL Framework">
+                <p class="figure-caption">
+                    <strong>Figure 1:</strong> Overview of PL-DPO-NLL framework. Top: frozen visual encoders process multimodal inputs for LLaMA-7B with trainable LoRA adapter. Bottom: training components including Plackett-Luce dataset, scene-adaptive β, NLL regularization, and PL-DPO loss.
+                </p>
+            </div>
+
+            <h3>Three Synergistic Innovations</h3>
+            <div class="method-grid">
+                <div class="method-card">
+                    <h4>🎯 Plackett-Luce Ranking</h4>
+                    <p>Multi-preference learning from K rejected actions ranked by risk severity, enabling fine-grained safety distinctions.</p>
+                </div>
+                <div class="method-card">
+                    <h4>⚡ Scene-Adaptive β</h4>
+                    <p>Dynamic weighting (β=0.35 for red lights vs β=0.12 for normal) amplifies gradients for critical scenarios.</p>
+                </div>
+                <div class="method-card">
+                    <h4>🔒 NLL Regularization</h4>
+                    <p>Prevents probability collapse by explicitly maintaining high likelihood for expert (chosen) actions.</p>
+                </div>
             </div>
         </section>
 
+        <!-- Experimental Results -->
+        <section>
+            <h2>Experimental Results</h2>
+
+            <h3>Main Comparison</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Method</th>
+                        <th>Driving Score ↑</th>
+                        <th>Route Comp. ↑</th>
+                        <th>Infraction ↑</th>
+                        <th>Improvement</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>SFT Baseline</td>
+                        <td>53.74</td>
+                        <td>63.0%</td>
+                        <td>86.9%</td>
+                        <td>—</td>
+                    </tr>
+                    <tr>
+                        <td>DPO</td>
+                        <td>55.63</td>
+                        <td>63.5%</td>
+                        <td>88.0%</td>
+                        <td>+3.5%</td>
+                    </tr>
+                    <tr>
+                        <td>IPO</td>
+                        <td>54.61</td>
+                        <td>62.9%</td>
+                        <td>87.0%</td>
+                        <td>+1.6%</td>
+                    </tr>
+                    <tr>
+                        <td>EXO</td>
+                        <td>55.49</td>
+                        <td>63.2%</td>
+                        <td>89.9%</td>
+                        <td>+3.3%</td>
+                    </tr>
+                    <tr>
+                        <td>BCO</td>
+                        <td>55.78</td>
+                        <td>64.2%</td>
+                        <td>87.7%</td>
+                        <td>+3.8%</td>
+                    </tr>
+                    <tr>
+                        <td>SPPO</td>
+                        <td>55.26</td>
+                        <td>63.4%</td>
+                        <td>87.7%</td>
+                        <td>+2.8%</td>
+                    </tr>
+                    <tr>
+                        <td>PL-DPO</td>
+                        <td>55.87</td>
+                        <td>64.0%</td>
+                        <td>88.0%</td>
+                        <td>+4.0%</td>
+                    </tr>
+                    <tr style="background: #dbeafe;">
+                        <td><strong>PL-DPO-NLL (Ours)</strong></td>
+                        <td class="best">58.26</td>
+                        <td class="best">65.9%</td>
+                        <td class="best">89.1%</td>
+                        <td class="best">+8.4%</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Training Dynamics</h3>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                <div class="figure">
+                    <img src="assets/figures/training_curves.png" alt="Training Curves">
+                    <p class="figure-caption"><strong>Figure 2:</strong> Training loss curves showing stable convergence for all methods.</p>
+                </div>
+                <div class="figure">
+                    <img src="assets/figures/nll_ablation.png" alt="NLL Ablation">
+                    <p class="figure-caption"><strong>Figure 3:</strong> NLL weight ablation. λ=0.1 achieves optimal balance.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dataset -->
+        <section>
+            <h2>Dataset Statistics</h2>
+            <p>We constructed a <strong>51K-sample Plackett-Luce preference dataset</strong> with risk-ranked annotations across 7 scene types:</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Scene Type</th>
+                        <th>Samples</th>
+                        <th>Percentage</th>
+                        <th>Rejected (K)</th>
+                        <th>β Weight</th>
+                        <th>Priority</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Turn</td><td>20,528</td><td>40.2%</td><td>3</td><td>0.40</td><td>🔴 Critical</td></tr>
+                    <tr><td>Normal</td><td>14,220</td><td>27.8%</td><td>2</td><td>0.12</td><td>🟢 Low</td></tr>
+                    <tr><td>Should Brake</td><td>7,497</td><td>14.7%</td><td>3</td><td>0.25</td><td>🟠 High</td></tr>
+                    <tr><td>Should Slow</td><td>3,090</td><td>6.0%</td><td>2</td><td>0.20</td><td>🟡 Medium</td></tr>
+                    <tr><td>Junction</td><td>2,845</td><td>5.6%</td><td>2</td><td>0.18</td><td>🟡 Medium</td></tr>
+                    <tr><td>Pedestrian</td><td>1,577</td><td>3.1%</td><td>3</td><td>0.35</td><td>🔴 Critical</td></tr>
+                    <tr><td>Red Light</td><td>1,367</td><td>2.7%</td><td>3</td><td>0.35</td><td>🔴 Critical</td></tr>
+                    <tr style="font-weight: bold; background: #f1f5f9;">
+                        <td>Total</td><td>51,124</td><td>100%</td><td>—</td><td>—</td><td>—</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Resources -->
+        <section>
+            <h2>Resources</h2>
+            <div class="resource-grid">
+                <div class="resource-card">
+                    <a href="code/">
+                        <div class="resource-icon">💻</div>
+                        <div class="resource-title">Code</div>
+                        <div class="resource-desc">Training & evaluation scripts</div>
+                        <span class="badge badge-coming">Coming Soon</span>
+                    </a>
+                </div>
+                <div class="resource-card">
+                    <a href="checkpoints/">
+                        <div class="resource-icon">🎯</div>
+                        <div class="resource-title">Checkpoints</div>
+                        <div class="resource-desc">Pre-trained model weights</div>
+                        <span class="badge badge-coming">Coming Soon</span>
+                    </a>
+                </div>
+                <div class="resource-card">
+                    <a href="dataset/">
+                        <div class="resource-icon">📊</div>
+                        <div class="resource-title">Dataset</div>
+                        <div class="resource-desc">51K preference samples</div>
+                        <span class="badge badge-coming">Coming Soon</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Citation -->
         <section>
             <h2>Citation</h2>
-            <pre style="background: #f1f5f9; padding: 1rem; border-radius: 8px; overflow-x: auto; font-size: 0.85rem;">
-@article{li2025pldponll,
-  title={Safety-Aligned Autonomous Driving via Plackett-Luce
-         Preference Learning with NLL Regularization},
-  author={Li, Yun and Javanmardi, Ehsan and Thompson, Simon
-          and Tsukada, Manabu},
-  journal={IEEE Robotics and Automation Letters},
-  year={2025},
-  note={Under Review}
+            <pre>@article{li2025pldponll,
+  title   = {Safety-Aligned Autonomous Driving via Plackett-Luce
+             Preference Learning with NLL Regularization},
+  author  = {Li, Yun and Javanmardi, Ehsan and Thompson, Simon
+             and Tsukada, Manabu},
+  journal = {IEEE Robotics and Automation Letters},
+  year    = {2025},
+  note    = {Under Review}
 }</pre>
         </section>
     </main>
 
     <footer>
-        <p>© 2025 PL-DPO-NLL Project. This page will be updated upon paper acceptance.</p>
+        <p>© 2025 PL-DPO-NLL Project | The University of Tokyo & TIER IV</p>
+        <p style="margin-top: 0.5rem; font-size: 0.8rem;">This page will be updated upon paper acceptance.</p>
     </footer>
 </body>
 </html>
