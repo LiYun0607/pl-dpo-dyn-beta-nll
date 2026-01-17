@@ -8,6 +8,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- MathJax for mathematical formulas -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <style>
         :root {
             --primary: #6366f1;
@@ -153,7 +156,7 @@
             font-size: 1.2rem;
             color: var(--text-muted);
             max-width: 700px;
-            margin: 0 auto 16px;
+            margin: 0 auto 24px;
             line-height: 1.6;
         }
 
@@ -162,6 +165,16 @@
             color: var(--text-dark);
             margin-bottom: 8px;
             font-weight: 500;
+        }
+
+        .authors a {
+            color: var(--text-dark);
+            text-decoration: none;
+        }
+
+        .authors a:hover {
+            color: var(--primary);
+            text-decoration: underline;
         }
 
         .affiliations {
@@ -173,6 +186,11 @@
         .affiliations a {
             color: var(--primary);
             text-decoration: none;
+        }
+
+        .affiliations sup {
+            font-size: 0.7rem;
+            margin-left: 1px;
         }
 
         /* Button Group */
@@ -250,6 +268,20 @@
             background: var(--bg-light);
             border-radius: 16px;
             transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .highlight-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gradient-primary);
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
 
         .highlight-card:hover {
@@ -258,8 +290,28 @@
             background: #fff;
         }
 
+        .highlight-card:hover::before {
+            opacity: 1;
+        }
+
+        .highlight-card .icon {
+            width: 48px;
+            height: 48px;
+            margin: 0 auto 16px;
+            background: var(--gradient-primary);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .highlight-card .icon i {
+            color: #fff;
+            font-size: 1.3rem;
+        }
+
         .highlight-card .number {
-            font-size: 2.5rem;
+            font-size: 2rem;
             font-weight: 700;
             background: var(--gradient-primary);
             -webkit-background-clip: text;
@@ -269,9 +321,10 @@
         }
 
         .highlight-card .label {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: var(--text-muted);
             font-weight: 500;
+            line-height: 1.4;
         }
 
         /* ===== TEASER ===== */
@@ -348,81 +401,83 @@
             background: #fff;
         }
 
-        .motivation-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            align-items: center;
+        .motivation-intro {
+            text-align: center;
+            margin-bottom: 48px;
         }
 
-        .motivation-content h3 {
+        .motivation-intro h3 {
             font-size: 1.5rem;
             font-weight: 600;
             color: var(--text-dark);
-            margin-bottom: 20px;
+            margin-bottom: 16px;
         }
 
-        .motivation-content p {
+        .motivation-intro p {
             color: var(--text-muted);
-            margin-bottom: 24px;
+            max-width: 700px;
+            margin: 0 auto;
             line-height: 1.8;
         }
 
-        .problem-list {
-            list-style: none;
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
         }
 
-        .problem-list li {
-            display: flex;
-            align-items: flex-start;
-            gap: 16px;
-            padding: 16px 0;
-            border-bottom: 1px solid var(--border);
+        .problem-card {
+            background: #fff;
+            border-radius: 20px;
+            padding: 32px 24px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
         }
 
-        .problem-list li:last-child {
-            border-bottom: none;
+        .problem-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-xl);
+            border-color: transparent;
         }
 
-        .problem-list .icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 10px;
+        .problem-card .card-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
-            flex-shrink: 0;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
         }
 
-        .problem-list .icon.danger {
+        .problem-card .card-icon.danger {
             background: rgba(239,68,68,0.1);
             color: var(--danger);
         }
 
-        .problem-list .icon.warning {
+        .problem-card .card-icon.warning {
             background: rgba(245,158,11,0.1);
             color: var(--warning);
         }
 
-        .problem-list .text strong {
-            display: block;
-            color: var(--text-dark);
-            margin-bottom: 4px;
+        .problem-card .card-icon.info {
+            background: rgba(99,102,241,0.1);
+            color: var(--primary);
         }
 
-        .problem-list .text span {
+        .problem-card h4 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 12px;
+        }
+
+        .problem-card p {
             font-size: 0.9rem;
             color: var(--text-muted);
-        }
-
-        .motivation-visual {
-            position: relative;
-        }
-
-        .motivation-visual img {
-            width: 100%;
-            border-radius: 16px;
-            box-shadow: var(--shadow-xl);
+            line-height: 1.7;
         }
 
         /* ===== ABSTRACT ===== */
@@ -555,6 +610,66 @@
             font-size: 0.75rem;
         }
 
+        /* ===== MATH FORMULA SECTION ===== */
+        .formula-section {
+            background: var(--bg-light);
+            border-radius: 20px;
+            padding: 48px;
+            margin-bottom: 64px;
+        }
+
+        .formula-section h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 32px;
+            text-align: center;
+        }
+
+        .formula-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 32px;
+        }
+
+        .formula-card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 28px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border);
+        }
+
+        .formula-card h4 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .formula-card h4 i {
+            font-size: 0.85rem;
+        }
+
+        .formula-card .math-display {
+            font-size: 1rem;
+            text-align: center;
+            padding: 16px 0;
+            overflow-x: auto;
+        }
+
+        .formula-card .description {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border);
+            line-height: 1.6;
+        }
+
         .method-figure {
             background: var(--bg-light);
             border-radius: 20px;
@@ -659,6 +774,12 @@
         .scene-badge .percent {
             font-size: 0.75rem;
             color: var(--accent-light);
+        }
+
+        .scene-badge .beta {
+            font-size: 0.7rem;
+            color: rgba(255,255,255,0.5);
+            margin-top: 4px;
         }
 
         /* ===== RESULTS ===== */
@@ -800,12 +921,12 @@
             color: #fff;
         }
 
-        /* ===== FIGURES ROW ===== */
-        .figures-row {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 40px;
+        /* ===== SINGLE FIGURE ===== */
+        .figure-single {
             margin-top: 60px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .figure-item {
@@ -856,12 +977,20 @@
                 grid-template-columns: repeat(2, 1fr);
             }
 
+            .problem-grid {
+                grid-template-columns: 1fr;
+            }
+
             .dataset-stats {
                 grid-template-columns: repeat(2, 1fr);
             }
 
             .scene-types {
                 grid-template-columns: repeat(4, 1fr);
+            }
+
+            .formula-grid {
+                grid-template-columns: 1fr;
             }
         }
 
@@ -887,14 +1016,6 @@
             }
 
             .method-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .motivation-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .figures-row {
                 grid-template-columns: 1fr;
             }
 
@@ -960,8 +1081,16 @@
             <span class="venue"><i class="fas fa-award"></i> RA-L 2025</span>
             <h1>Safety-Aligned Autonomous Driving via Plackett-Luce Preference Learning</h1>
             <p class="subtitle">A preference learning framework that prevents probability collapse and learns fine-grained safety distinctions for end-to-end driving.</p>
-            <p class="authors">Anonymous Authors</p>
-            <p class="affiliations">Anonymous Institution</p>
+            <p class="authors">
+                <a href="#">Yun Li</a><sup>1</sup>,
+                <a href="#">Ehsan Javanmardi</a><sup>1</sup>,
+                <a href="#">Simon Thompson</a><sup>2</sup>,
+                <a href="#">Manabu Tsukada</a><sup>1</sup>
+            </p>
+            <p class="affiliations">
+                <sup>1</sup><a href="https://www.u-tokyo.ac.jp/">The University of Tokyo</a>&nbsp;&nbsp;
+                <sup>2</sup><a href="https://tier4.jp/">TIER IV, Inc.</a>
+            </p>
 
             <div class="btn-group">
                 <a href="#" class="btn btn-disabled">
@@ -982,20 +1111,24 @@
         <div class="container">
             <div class="highlights-grid">
                 <div class="highlight-card">
-                    <div class="number">+8.4%</div>
-                    <div class="label">Driving Score Improvement</div>
+                    <div class="icon"><i class="fas fa-shield-halved"></i></div>
+                    <div class="number">+4.5%</div>
+                    <div class="label">DS Gain vs DPO<br><small style="color:#94a3b8">58.26 vs 55.63</small></div>
                 </div>
                 <div class="highlight-card">
-                    <div class="number">65.9%</div>
-                    <div class="label">Route Completion</div>
+                    <div class="icon"><i class="fas fa-anchor"></i></div>
+                    <div class="number">+4.4%</div>
+                    <div class="label">NLL Regularization<br><small style="color:#94a3b8">Prevents collapse</small></div>
                 </div>
                 <div class="highlight-card">
-                    <div class="number">51K</div>
-                    <div class="label">Preference Samples</div>
+                    <div class="icon"><i class="fas fa-ranking-star"></i></div>
+                    <div class="number">K=3</div>
+                    <div class="label">Multi-Rejection Ranking<br><small style="color:#94a3b8">vs Binary DPO</small></div>
                 </div>
                 <div class="highlight-card">
-                    <div class="number">7</div>
-                    <div class="label">Scene Types</div>
+                    <div class="icon"><i class="fas fa-sliders"></i></div>
+                    <div class="number">2.9&times;</div>
+                    <div class="label">Dynamic &beta; Range<br><small style="color:#94a3b8">0.12 ~ 0.40</small></div>
                 </div>
             </div>
         </div>
@@ -1007,7 +1140,7 @@
             <div class="teaser-wrapper">
                 <img src="assets/figures/framework.png" alt="PL-DPO-NLL Framework" class="teaser-img">
                 <p class="teaser-caption">
-                    <strong>Overview of PL-DPO-NLL Framework.</strong> We introduce Plackett-Luce ranking for multi-level safety preferences and NLL regularization to prevent probability collapse. The training pipeline processes multimodal inputs through frozen visual encoders, with only the LoRA adapter being trainable.
+                    <strong>Overview of PL-DPO-NLL Framework.</strong> We introduce Plackett-Luce ranking for multi-level safety preferences, scene-adaptive &beta; weighting, and NLL regularization to prevent probability collapse. The training pipeline processes multimodal inputs through frozen visual encoders, with only the LoRA adapter being trainable.
                 </p>
             </div>
         </div>
@@ -1016,29 +1149,26 @@
     <!-- ===== MOTIVATION ===== -->
     <section class="motivation" id="motivation">
         <div class="container">
-            <div class="motivation-grid">
-                <div class="motivation-content">
-                    <h3>Why Safety-Aligned Preference Learning?</h3>
-                    <p>Vision-Language-Action models show promise for end-to-end driving, but standard preference optimization faces critical challenges:</p>
-                    <ul class="problem-list">
-                        <li>
-                            <div class="icon danger"><i class="fas fa-chart-line-down"></i></div>
-                            <div class="text">
-                                <strong>Probability Collapse</strong>
-                                <span>DPO decreases the probability of safe actions during training, undermining the model's confidence in expert behaviors.</span>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="icon warning"><i class="fas fa-balance-scale"></i></div>
-                            <div class="text">
-                                <strong>Binary Limitations</strong>
-                                <span>Traditional pairwise comparisons cannot capture nuanced safety distinctions (safe → risky → critical).</span>
-                            </div>
-                        </li>
-                    </ul>
+            <div class="motivation-intro">
+                <h3>Why Safety-Aligned Preference Learning?</h3>
+                <p>Vision-Language-Action models show promise for end-to-end driving, but standard preference optimization faces three critical challenges:</p>
+            </div>
+
+            <div class="problem-grid">
+                <div class="problem-card">
+                    <div class="card-icon danger"><i class="fas fa-chart-line-down"></i></div>
+                    <h4>Probability Collapse</h4>
+                    <p>DPO decreases the probability of <em>safe actions</em> during training, undermining the model's confidence in expert behaviors and leading to degraded performance.</p>
                 </div>
-                <div class="motivation-visual">
-                    <img src="assets/figures/nll_ablation.png" alt="Probability Collapse Problem">
+                <div class="problem-card">
+                    <div class="card-icon warning"><i class="fas fa-balance-scale"></i></div>
+                    <h4>Binary Limitations</h4>
+                    <p>Traditional pairwise comparisons cannot capture nuanced safety distinctions. Real driving requires ranking: <strong>safe &gt; risky &gt; critical</strong>.</p>
+                </div>
+                <div class="problem-card">
+                    <div class="card-icon info"><i class="fas fa-chart-pie"></i></div>
+                    <h4>Data Imbalance</h4>
+                    <p>Safety-critical scenarios (red lights, pedestrians) comprise only <strong>3.9%</strong> of data but require disproportionate learning attention via adaptive weighting.</p>
                 </div>
             </div>
         </div>
@@ -1053,7 +1183,7 @@
             </div>
             <div class="abstract-card">
                 <p class="abstract-content">
-                    Safe autonomous driving demands that learned policies maintain high confidence in safe actions, yet this critical property is often violated during preference-based training. Vision-Language-Action (VLA) models have emerged as promising end-to-end driving agents, but they struggle with safety alignment due to imbalanced training data and <em>probability collapse</em>, where the likelihood of safe actions decreases during optimization. We propose <strong>Plackett-Luce DPO with NLL Regularization (PL-DPO-NLL)</strong>, a preference learning framework for safety-aligned driving. Our method introduces three synergistic innovations: (1) Plackett-Luce multi-preference ranking that learns from multiple rejected actions ranked by risk severity, (2) scene-adaptive β weighting that amplifies gradients for critical scenarios, and (3) NLL regularization that explicitly maintains chosen action probability. On CARLA closed-loop benchmark, PL-DPO-NLL achieves <strong>8.4% improvement</strong> in driving score with the highest route completion (65.9%) and infraction penalty (89.1%), outperforming DPO variants including IPO, EXO, BCO, and SPPO.
+                    Safe autonomous driving demands that learned policies maintain high confidence in safe actions, yet this critical property is often violated during preference-based training. Vision-Language-Action (VLA) models have emerged as promising end-to-end driving agents, but they struggle with safety alignment due to imbalanced training data and <em>probability collapse</em>, where the likelihood of safe actions decreases during optimization. We propose <strong>Plackett-Luce DPO with NLL Regularization (PL-DPO-NLL)</strong>, a preference learning framework for safety-aligned driving. Our method introduces three synergistic innovations: (1) <strong>Plackett-Luce multi-preference ranking</strong> that learns from multiple rejected actions ranked by risk severity, (2) <strong>scene-adaptive &beta; weighting</strong> that dynamically assigns higher &beta; values to critical scenarios (e.g., &beta;=0.35 for red lights vs. &beta;=0.12 for normal driving), and (3) <strong>NLL regularization</strong> that explicitly maintains chosen action probability. On CARLA closed-loop benchmark, PL-DPO-NLL achieves <strong>8.4% improvement</strong> in driving score with the highest route completion (65.9%) and infraction penalty (89.1%), outperforming DPO variants including IPO, EXO, BCO, and SPPO.
                 </p>
             </div>
         </div>
@@ -1075,7 +1205,7 @@
                         <i class="fas fa-sort-amount-down"></i>
                     </div>
                     <h3>Plackett-Luce Ranking</h3>
-                    <p>Learn from ranked rejected actions (Safe → Risky → Critical) instead of binary pairs, enabling fine-grained safety distinctions across 7 scene types.</p>
+                    <p>Learn from ranked rejected actions (Safe &rarr; Risky &rarr; Critical) instead of binary pairs, enabling fine-grained safety distinctions across 7 scene types.</p>
                     <span class="gain"><i class="fas fa-arrow-up"></i> +4.0% gain</span>
                 </div>
 
@@ -1084,8 +1214,8 @@
                     <div class="icon">
                         <i class="fas fa-sliders-h"></i>
                     </div>
-                    <h3>Scene-Adaptive β</h3>
-                    <p>Dynamically amplify gradients for critical scenarios (β=0.35 for red lights vs. β=0.12 for normal driving), prioritizing safety-critical learning.</p>
+                    <h3>Scene-Adaptive &beta;</h3>
+                    <p>Dynamically amplify gradients for critical scenarios (&beta;=0.35 for red lights vs. &beta;=0.12 for normal driving), prioritizing safety-critical learning.</p>
                     <span class="gain"><i class="fas fa-arrow-up"></i> +1.0% gain</span>
                 </div>
 
@@ -1100,9 +1230,44 @@
                 </div>
             </div>
 
+            <!-- Mathematical Formulas -->
+            <div class="formula-section">
+                <h3><i class="fas fa-square-root-variable"></i>&nbsp; Core Formulations</h3>
+                <div class="formula-grid">
+                    <div class="formula-card">
+                        <h4><i class="fas fa-list-ol"></i> Plackett-Luce DPO Loss</h4>
+                        <div class="math-display">
+                            \[\mathcal{L}_{\text{PL-DPO}} = -\mathbb{E}_{(x, \mathcal{Y})} \left[ \sum_{i=1}^{M} \log \frac{\exp(\beta \cdot r_i)}{\sum_{j=i}^{M} \exp(\beta \cdot r_j)} \right]\]
+                        </div>
+                        <p class="description">where \(r_i = \log \frac{\pi_\theta(y^{(i)}|x)}{\pi_{\text{ref}}(y^{(i)}|x)}\) is the implicit reward, and \(M = K + 1\) candidates are ranked by risk severity.</p>
+                    </div>
+                    <div class="formula-card">
+                        <h4><i class="fas fa-anchor"></i> NLL Regularization</h4>
+                        <div class="math-display">
+                            \[\mathcal{L}_{\text{NLL}} = -\log \pi_\theta(y_w|x)\]
+                        </div>
+                        <p class="description">Directly maximizes the probability of expert (chosen) actions, preventing the probability collapse phenomenon observed in vanilla DPO.</p>
+                    </div>
+                    <div class="formula-card">
+                        <h4><i class="fas fa-plus"></i> Combined Objective</h4>
+                        <div class="math-display">
+                            \[\mathcal{L}_{\text{total}} = \mathcal{L}_{\text{PL-DPO}} + \lambda \cdot \mathcal{L}_{\text{NLL}}\]
+                        </div>
+                        <p class="description">The hyperparameter \(\lambda = 0.1\) provides optimal balance between preference learning and likelihood maximization.</p>
+                    </div>
+                    <div class="formula-card">
+                        <h4><i class="fas fa-wave-square"></i> Gradient Amplification</h4>
+                        <div class="math-display">
+                            \[\frac{\partial \mathcal{L}}{\partial \theta} \propto \beta \cdot \nabla_\theta \log \frac{\pi_\theta(y_w | x)}{\pi_\theta(y_l | x)}\]
+                        </div>
+                        <p class="description">Scene-adaptive \(\beta\) (0.35 vs 0.12) amplifies gradients for safety-critical scenarios by 2.9&times;, despite comprising only 3.9% of data.</p>
+                    </div>
+                </div>
+            </div>
+
             <figure class="method-figure">
                 <img src="assets/figures/nll_ablation.png" alt="NLL Weight Ablation">
-                <figcaption><strong>Effect of NLL weight λ on driving performance.</strong> λ=0.1 achieves optimal balance between preference learning and likelihood maximization. Larger values cause NLL to dominate, suppressing the preference signal.</figcaption>
+                <figcaption><strong>Effect of NLL weight &lambda; on driving performance.</strong> &lambda;=0.1 achieves optimal balance between preference learning and likelihood maximization. Larger values cause NLL to dominate, suppressing the preference signal.</figcaption>
             </figure>
         </div>
     </section>
@@ -1113,7 +1278,7 @@
             <div class="section-header">
                 <span class="section-tag">Dataset</span>
                 <h2 class="section-title">Plackett-Luce Preference Dataset</h2>
-                <p class="section-subtitle">51K multi-preference samples covering diverse driving scenarios.</p>
+                <p class="section-subtitle">51K multi-preference samples covering diverse driving scenarios with scene-adaptive &beta; weights.</p>
             </div>
 
             <div class="dataset-stats">
@@ -1131,7 +1296,7 @@
                 </div>
                 <div class="stat-card">
                     <div class="number">0.12-0.40</div>
-                    <div class="label">Adaptive β Range</div>
+                    <div class="label">Adaptive &beta; Range</div>
                 </div>
             </div>
 
@@ -1139,30 +1304,37 @@
                 <div class="scene-badge">
                     <div class="name">Turn</div>
                     <div class="percent">40.2%</div>
+                    <div class="beta">&beta;=0.40</div>
                 </div>
                 <div class="scene-badge">
                     <div class="name">Normal</div>
                     <div class="percent">27.8%</div>
+                    <div class="beta">&beta;=0.12</div>
                 </div>
                 <div class="scene-badge">
                     <div class="name">Should Brake</div>
                     <div class="percent">14.7%</div>
+                    <div class="beta">&beta;=0.25</div>
                 </div>
                 <div class="scene-badge">
                     <div class="name">Should Slow</div>
                     <div class="percent">6.0%</div>
+                    <div class="beta">&beta;=0.20</div>
                 </div>
                 <div class="scene-badge">
                     <div class="name">Junction</div>
                     <div class="percent">5.6%</div>
+                    <div class="beta">&beta;=0.18</div>
                 </div>
                 <div class="scene-badge">
                     <div class="name">Pedestrian</div>
                     <div class="percent">3.1%</div>
+                    <div class="beta">&beta;=0.35</div>
                 </div>
                 <div class="scene-badge">
                     <div class="name">Red Light</div>
                     <div class="percent">2.7%</div>
+                    <div class="beta">&beta;=0.35</div>
                 </div>
             </div>
         </div>
@@ -1200,9 +1372,9 @@
                     <thead>
                         <tr>
                             <th>Method</th>
-                            <th>Driving Score ↑</th>
-                            <th>Route Completion ↑</th>
-                            <th>Infraction Penalty ↑</th>
+                            <th>Driving Score &uarr;</th>
+                            <th>Route Completion &uarr;</th>
+                            <th>Infraction Penalty &uarr;</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -1258,14 +1430,10 @@
                 </table>
             </div>
 
-            <div class="figures-row">
+            <div class="figure-single">
                 <figure class="figure-item">
                     <img src="assets/figures/training_curves.png" alt="Training Curves">
-                    <figcaption><strong>Training loss curves</strong> for all preference learning methods, showing stable convergence.</figcaption>
-                </figure>
-                <figure class="figure-item">
-                    <img src="assets/figures/reward_margins.png" alt="Reward Margins">
-                    <figcaption><strong>Reward margin comparison</strong> between DPO variants during training.</figcaption>
+                    <figcaption><strong>Training loss curves</strong> for all preference learning methods, showing stable convergence of PL-DPO-NLL.</figcaption>
                 </figure>
             </div>
         </div>
@@ -1274,7 +1442,7 @@
     <!-- ===== FOOTER ===== -->
     <footer>
         <div class="container">
-            <p>This page is for anonymous review. Author information will be added upon acceptance.</p>
+            <p>&copy; 2025 Yun Li, The University of Tokyo. All rights reserved.</p>
             <p>Template inspired by <a href="https://nerfies.github.io/" target="_blank">Nerfies</a>.</p>
         </div>
     </footer>
