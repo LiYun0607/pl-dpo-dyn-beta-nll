@@ -1105,29 +1105,37 @@
         </div>
     </header>
 
-    <!-- ===== KEY HIGHLIGHTS ===== -->
-    <section class="highlights">
+    <!-- ===== THE PROBLEM & OUR SOLUTION ===== -->
+    <section class="highlights" style="padding: 40px 0 80px;">
         <div class="container">
-            <div class="highlights-grid">
-                <div class="highlight-card">
-                    <div class="icon"><i class="fas fa-trophy"></i></div>
-                    <div class="number">+8.4%</div>
-                    <div class="label">Driving Score Improvement<br><small style="color:#94a3b8">over SFT baseline on CARLA</small></div>
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 32px; max-width: 1000px; margin: 0 auto;">
+                <div style="background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%); border-radius: 20px; padding: 36px; border-left: 4px solid #ef4444; box-shadow: 0 4px 15px rgba(239,68,68,0.1);">
+                    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px;">
+                        <div style="width: 48px; height: 48px; background: #ef4444; border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+                            <i class="fas fa-exclamation-triangle" style="color: #fff; font-size: 1.3rem;"></i>
+                        </div>
+                        <h3 style="font-size: 1.3rem; font-weight: 700; color: #991b1b;">The Problem</h3>
+                    </div>
+                    <p style="color: #7f1d1d; font-size: 1rem; line-height: 1.8; margin-bottom: 16px;">
+                        Standard DPO (Direct Preference Optimization) maximizes only the <em>relative margin</em> between chosen and rejected actions, not the absolute probability of safe actions.
+                    </p>
+                    <p style="color: #b91c1c; font-size: 0.95rem; line-height: 1.7;">
+                        <strong>Consequence:</strong> "<em>Probability collapse</em>" occurs where safe driving behaviors become <strong>less likely</strong> during training&mdash;a critical safety flaw for autonomous vehicles.
+                    </p>
                 </div>
-                <div class="highlight-card">
-                    <div class="icon"><i class="fas fa-route"></i></div>
-                    <div class="number">65.9%</div>
-                    <div class="label">Route Completion Rate<br><small style="color:#94a3b8">Best among all methods</small></div>
-                </div>
-                <div class="highlight-card">
-                    <div class="icon"><i class="fas fa-shield-halved"></i></div>
-                    <div class="number">0.891</div>
-                    <div class="label">Infraction Penalty Score<br><small style="color:#94a3b8">Fewest safety violations</small></div>
-                </div>
-                <div class="highlight-card">
-                    <div class="icon"><i class="fas fa-lightbulb"></i></div>
-                    <div class="number">3</div>
-                    <div class="label">Synergistic Innovations<br><small style="color:#94a3b8">PL Ranking + Adaptive &beta; + NLL</small></div>
+                <div style="background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); border-radius: 20px; padding: 36px; border-left: 4px solid #10b981; box-shadow: 0 4px 15px rgba(16,185,129,0.1);">
+                    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px;">
+                        <div style="width: 48px; height: 48px; background: #10b981; border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+                            <i class="fas fa-lightbulb" style="color: #fff; font-size: 1.3rem;"></i>
+                        </div>
+                        <h3 style="font-size: 1.3rem; font-weight: 700; color: #166534;">Our Solution</h3>
+                    </div>
+                    <p style="color: #14532d; font-size: 1rem; line-height: 1.8; margin-bottom: 16px;">
+                        We propose <strong>PL-DPO-NLL</strong>, adding NLL (Negative Log-Likelihood) regularization with weight &lambda;=0.1 to directly maximize the probability of expert actions.
+                    </p>
+                    <p style="color: #15803d; font-size: 0.95rem; line-height: 1.7;">
+                        <strong>Key innovations:</strong> Plackett-Luce ranking for multi-level safety distinctions + scene-adaptive &beta; weighting (0.35 for critical vs 0.12 for normal).
+                    </p>
                 </div>
             </div>
         </div>
@@ -1182,20 +1190,8 @@
             </div>
             <div class="abstract-card">
                 <p class="abstract-content">
-                    Safe autonomous driving demands that learned policies maintain high confidence in safe actions, yet this critical property is often violated during preference-based training. Vision-Language-Action (VLA) models have emerged as promising end-to-end driving agents, but they struggle with safety alignment due to imbalanced training data and <em>probability collapse</em>, where the likelihood of safe actions decreases during optimization. We propose <strong>Plackett-Luce DPO with NLL Regularization (PL-DPO-NLL)</strong>, a preference learning framework for safety-aligned driving. Our method introduces three synergistic innovations: (1) <strong>Plackett-Luce multi-preference ranking</strong> that learns from multiple rejected actions ranked by risk severity, (2) <strong>scene-adaptive &beta; weighting</strong> that dynamically assigns higher &beta; values to critical scenarios (e.g., &beta;=0.35 for red lights vs. &beta;=0.12 for normal driving), and (3) <strong>NLL regularization</strong> that explicitly maintains chosen action probability. On CARLA closed-loop benchmark, PL-DPO-NLL achieves <strong>8.4% improvement</strong> in driving score with the highest route completion (65.9%) and infraction penalty (89.1%), outperforming DPO variants including IPO, EXO, BCO, and SPPO.
+                    Vision-Language-Action (VLA) models have shown great potential for end-to-end autonomous driving, yet aligning them with safety constraints remains a challenge due to long-tail data imbalance and <em>probability collapse</em>, a phenomenon where the likelihood of safe actions degrades during preference optimization. To bridge this gap, we propose <strong>PL-DPO-NLL</strong>, a safety-aware preference learning framework. We introduce three key contributions: (1) <strong>Plackett-Luce multi-preference ranking</strong>, which extends pairwise comparisons to risk-ranked trajectory lists to capture fine-grained safety severities; (2) <strong>Scene-adaptive &beta; weighting</strong>, which dynamically amplifies optimization gradients in safety-critical scenarios; and (3) <strong>NLL regularization</strong>, which explicitly anchors the policy to expert demonstrations to prevent probability collapse. On the CARLA closed-loop benchmark, our method achieves a <strong>58.26 Driving Score (+8.4% over baseline)</strong>, setting a new state-of-the-art in route completion (65.9%) and infraction penalty (89.1%) compared to existing DPO variants (IPO, EXO, BCO, SPPO).
                 </p>
-            </div>
-
-            <!-- Key Insights -->
-            <div style="margin-top: 48px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px;">
-                <div style="background: #fff; border-radius: 16px; padding: 28px; box-shadow: var(--shadow);">
-                    <h4 style="color: var(--primary); margin-bottom: 12px; font-size: 1rem;"><i class="fas fa-exclamation-triangle" style="margin-right: 8px;"></i>The Problem</h4>
-                    <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.7;">Standard DPO (Direct Preference Optimization) maximizes only the <em>relative margin</em> between chosen and rejected actions, not the absolute probability of safe actions. This causes "probability collapse" where safe driving behaviors become less likely during training—a critical flaw for safety applications.</p>
-                </div>
-                <div style="background: #fff; border-radius: 16px; padding: 28px; box-shadow: var(--shadow);">
-                    <h4 style="color: var(--success); margin-bottom: 12px; font-size: 1rem;"><i class="fas fa-lightbulb" style="margin-right: 8px;"></i>Our Solution</h4>
-                    <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.7;">We add NLL (Negative Log-Likelihood) regularization with weight &lambda;=0.1 to directly maximize the probability of expert actions. Combined with Plackett-Luce ranking for multi-level safety distinctions and scene-adaptive &beta; weighting, this prevents collapse while learning nuanced preferences.</p>
-                </div>
             </div>
         </div>
     </section>
