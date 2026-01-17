@@ -6,20 +6,31 @@
     <title>PL-DPO-NLL | Safety-Aligned Autonomous Driving</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&family=Noto+Serif:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary: #4361ee;
-            --primary-dark: #3a0ca3;
-            --accent: #4cc9f0;
-            --text-dark: #212529;
-            --text-muted: #6c757d;
-            --bg-light: #f8f9fa;
-            --bg-code: #2d3748;
-            --border: #dee2e6;
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --primary-light: #818cf8;
+            --accent: #06b6d4;
+            --accent-light: #22d3ee;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --text-dark: #1e293b;
+            --text-muted: #64748b;
+            --text-light: #94a3b8;
+            --bg-light: #f8fafc;
+            --bg-dark: #0f172a;
+            --bg-card: #ffffff;
+            --border: #e2e8f0;
+            --shadow-sm: 0 1px 2px 0 rgba(0,0,0,0.05);
             --shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
             --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
+            --gradient-primary: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #a855f7 100%);
+            --gradient-accent: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%);
         }
 
         * {
@@ -33,57 +44,130 @@
         }
 
         body {
-            font-family: 'Noto Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             line-height: 1.7;
             color: var(--text-dark);
             background: #fff;
+            overflow-x: hidden;
         }
 
         .container {
-            max-width: 980px;
+            max-width: 1100px;
             margin: 0 auto;
             padding: 0 24px;
         }
 
-        /* ===== HEADER ===== */
+        /* ===== NAVIGATION ===== */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(255,255,255,0.9);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            padding: 16px 0;
+            transition: all 0.3s ease;
+        }
+
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        /* ===== HERO ===== */
         .hero {
-            padding: 80px 0 60px;
+            padding: 140px 0 80px;
             text-align: center;
-            background: linear-gradient(180deg, #f8f9fa 0%, #fff 100%);
+            background: linear-gradient(180deg, #f8fafc 0%, #fff 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(99,102,241,0.08) 0%, transparent 70%);
+            pointer-events: none;
         }
 
         .hero .venue {
-            display: inline-block;
-            background: var(--primary);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--gradient-primary);
             color: #fff;
-            padding: 6px 16px;
-            border-radius: 20px;
+            padding: 8px 20px;
+            border-radius: 50px;
             font-size: 0.85rem;
             font-weight: 600;
-            margin-bottom: 24px;
+            margin-bottom: 28px;
             letter-spacing: 0.5px;
+            box-shadow: 0 4px 15px rgba(99,102,241,0.3);
         }
 
         .hero h1 {
-            font-family: 'Noto Serif', Georgia, serif;
-            font-size: 2.5rem;
-            font-weight: 500;
-            line-height: 1.3;
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 3rem;
+            font-weight: 600;
+            line-height: 1.2;
             color: var(--text-dark);
             max-width: 900px;
-            margin: 0 auto 28px;
+            margin: 0 auto 32px;
+            letter-spacing: -0.02em;
+        }
+
+        .hero .subtitle {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 700px;
+            margin: 0 auto 16px;
+            line-height: 1.6;
         }
 
         .authors {
-            font-size: 1.1rem;
-            color: var(--text-muted);
+            font-size: 1.05rem;
+            color: var(--text-dark);
             margin-bottom: 8px;
+            font-weight: 500;
         }
 
         .affiliations {
             font-size: 0.95rem;
             color: var(--text-muted);
-            margin-bottom: 32px;
+            margin-bottom: 40px;
         }
 
         .affiliations a {
@@ -95,20 +179,20 @@
         .btn-group {
             display: flex;
             justify-content: center;
-            gap: 12px;
+            gap: 16px;
             flex-wrap: wrap;
         }
 
         .btn {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            padding: 12px 24px;
-            border-radius: 8px;
+            gap: 10px;
+            padding: 14px 28px;
+            border-radius: 12px;
             font-size: 0.95rem;
-            font-weight: 500;
+            font-weight: 600;
             text-decoration: none;
-            transition: all 0.2s ease;
+            transition: all 0.3s ease;
             border: 2px solid transparent;
         }
 
@@ -117,59 +201,104 @@
         }
 
         .btn-primary {
-            background: var(--primary);
+            background: var(--gradient-primary);
             color: #fff;
+            box-shadow: 0 4px 15px rgba(99,102,241,0.3);
         }
 
         .btn-primary:hover {
-            background: var(--primary-dark);
-            transform: translateY(-2px);
-            box-shadow: var(--shadow);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(99,102,241,0.4);
         }
 
         .btn-outline {
             background: #fff;
             color: var(--text-dark);
             border-color: var(--border);
+            box-shadow: var(--shadow-sm);
         }
 
         .btn-outline:hover {
             border-color: var(--primary);
             color: var(--primary);
-            transform: translateY(-2px);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
         }
 
         .btn-disabled {
             background: var(--bg-light);
-            color: var(--text-muted);
+            color: var(--text-light);
             cursor: not-allowed;
             border-color: var(--border);
         }
 
+        /* ===== KEY HIGHLIGHTS ===== */
+        .highlights {
+            padding: 0 0 80px;
+            background: #fff;
+        }
+
+        .highlights-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+        }
+
+        .highlight-card {
+            text-align: center;
+            padding: 32px 20px;
+            background: var(--bg-light);
+            border-radius: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .highlight-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+            background: #fff;
+        }
+
+        .highlight-card .number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 8px;
+        }
+
+        .highlight-card .label {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
         /* ===== TEASER ===== */
         .teaser {
-            padding: 40px 0 60px;
+            padding: 80px 0;
+            background: var(--bg-light);
+        }
+
+        .teaser-wrapper {
             background: #fff;
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: var(--shadow-xl);
         }
 
         .teaser-img {
             width: 100%;
-            max-width: 900px;
-            margin: 0 auto;
+            border-radius: 16px;
             display: block;
-            border-radius: 12px;
-            box-shadow: var(--shadow-lg);
         }
 
         .teaser-caption {
             text-align: center;
-            margin-top: 20px;
+            margin-top: 24px;
             font-size: 0.95rem;
             color: var(--text-muted);
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-            line-height: 1.6;
+            line-height: 1.7;
         }
 
         .teaser-caption strong {
@@ -178,160 +307,436 @@
 
         /* ===== SECTIONS ===== */
         section {
-            padding: 60px 0;
+            padding: 100px 0;
         }
 
-        section:nth-child(even) {
-            background: var(--bg-light);
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-tag {
+            display: inline-block;
+            background: rgba(99,102,241,0.1);
+            color: var(--primary);
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 16px;
         }
 
         .section-title {
-            font-family: 'Noto Serif', Georgia, serif;
-            font-size: 1.8rem;
-            font-weight: 500;
-            text-align: center;
-            margin-bottom: 40px;
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 2.5rem;
+            font-weight: 600;
             color: var(--text-dark);
+            margin-bottom: 16px;
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* ===== MOTIVATION ===== */
+        .motivation {
+            background: #fff;
+        }
+
+        .motivation-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .motivation-content h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 20px;
+        }
+
+        .motivation-content p {
+            color: var(--text-muted);
+            margin-bottom: 24px;
+            line-height: 1.8;
+        }
+
+        .problem-list {
+            list-style: none;
+        }
+
+        .problem-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            padding: 16px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .problem-list li:last-child {
+            border-bottom: none;
+        }
+
+        .problem-list .icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .problem-list .icon.danger {
+            background: rgba(239,68,68,0.1);
+            color: var(--danger);
+        }
+
+        .problem-list .icon.warning {
+            background: rgba(245,158,11,0.1);
+            color: var(--warning);
+        }
+
+        .problem-list .text strong {
+            display: block;
+            color: var(--text-dark);
+            margin-bottom: 4px;
+        }
+
+        .problem-list .text span {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .motivation-visual {
+            position: relative;
+        }
+
+        .motivation-visual img {
+            width: 100%;
+            border-radius: 16px;
+            box-shadow: var(--shadow-xl);
         }
 
         /* ===== ABSTRACT ===== */
-        .abstract-content {
-            font-size: 1.05rem;
-            line-height: 1.85;
-            text-align: justify;
-            max-width: 820px;
+        .abstract {
+            background: var(--bg-light);
+        }
+
+        .abstract-card {
+            background: #fff;
+            border-radius: 24px;
+            padding: 48px;
+            box-shadow: var(--shadow-lg);
+            max-width: 900px;
             margin: 0 auto;
-            color: #333;
+        }
+
+        .abstract-content {
+            font-size: 1.1rem;
+            line-height: 1.9;
+            color: var(--text-dark);
         }
 
         .abstract-content em {
             font-style: italic;
             color: var(--primary-dark);
+            font-weight: 500;
+        }
+
+        .abstract-content strong {
+            color: var(--primary-dark);
         }
 
         /* ===== METHODOLOGY ===== */
+        .methodology {
+            background: #fff;
+        }
+
         .method-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
-            margin-bottom: 48px;
+            gap: 32px;
+            margin-bottom: 64px;
         }
 
         .method-card {
             background: #fff;
-            border-radius: 12px;
-            padding: 28px 24px;
+            border-radius: 20px;
+            padding: 36px 28px;
             box-shadow: var(--shadow);
-            border-top: 4px solid var(--primary);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .method-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
         }
 
         .method-card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-lg);
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-xl);
+            border-color: transparent;
+        }
+
+        .method-card .step {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            background: var(--gradient-primary);
+            color: #fff;
+            border-radius: 50%;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 20px;
         }
 
         .method-card .icon {
-            width: 48px;
-            height: 48px;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
-            border-radius: 12px;
+            width: 56px;
+            height: 56px;
+            background: var(--gradient-primary);
+            border-radius: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 16px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(99,102,241,0.3);
         }
 
         .method-card .icon i {
             color: #fff;
-            font-size: 1.3rem;
+            font-size: 1.5rem;
         }
 
         .method-card h3 {
-            font-size: 1.1rem;
-            font-weight: 600;
+            font-size: 1.2rem;
+            font-weight: 700;
             margin-bottom: 12px;
             color: var(--text-dark);
         }
 
         .method-card p {
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             color: var(--text-muted);
-            line-height: 1.6;
-            margin-bottom: 12px;
+            line-height: 1.7;
+            margin-bottom: 16px;
         }
 
         .method-card .gain {
-            display: inline-block;
-            background: #d4edda;
-            color: #155724;
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 0.8rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(16,185,129,0.1);
+            color: var(--success);
+            padding: 6px 14px;
+            border-radius: 50px;
+            font-size: 0.85rem;
             font-weight: 600;
         }
 
+        .method-card .gain i {
+            font-size: 0.75rem;
+        }
+
         .method-figure {
-            text-align: center;
+            background: var(--bg-light);
+            border-radius: 20px;
+            padding: 40px;
         }
 
         .method-figure img {
-            max-width: 600px;
+            max-width: 650px;
             width: 100%;
-            border-radius: 8px;
+            margin: 0 auto;
+            display: block;
+            border-radius: 12px;
             box-shadow: var(--shadow);
         }
 
         .method-figure figcaption {
-            margin-top: 16px;
-            font-size: 0.9rem;
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.95rem;
             color: var(--text-muted);
         }
 
-        /* ===== RESULTS ===== */
-        .results-highlight {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+        /* ===== DATASET ===== */
+        .dataset {
+            background: var(--bg-dark);
             color: #fff;
-            border-radius: 16px;
-            padding: 32px;
-            text-align: center;
-            margin-bottom: 40px;
         }
 
-        .results-highlight .big-number {
-            font-size: 3.5rem;
+        .dataset .section-tag {
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+        }
+
+        .dataset .section-title {
+            color: #fff;
+        }
+
+        .dataset .section-subtitle {
+            color: rgba(255,255,255,0.7);
+        }
+
+        .dataset-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            margin-bottom: 48px;
+        }
+
+        .stat-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 28px 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            background: rgba(255,255,255,0.1);
+            transform: translateY(-5px);
+        }
+
+        .stat-card .number {
+            font-size: 2.2rem;
             font-weight: 700;
+            color: var(--accent-light);
             margin-bottom: 8px;
         }
 
-        .results-highlight .label {
-            font-size: 1.1rem;
+        .stat-card .label {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.7);
+        }
+
+        .scene-types {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 12px;
+        }
+
+        .scene-badge {
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 16px 12px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .scene-badge:hover {
+            background: rgba(255,255,255,0.12);
+            transform: scale(1.05);
+        }
+
+        .scene-badge .name {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 4px;
+        }
+
+        .scene-badge .percent {
+            font-size: 0.75rem;
+            color: var(--accent-light);
+        }
+
+        /* ===== RESULTS ===== */
+        .results {
+            background: #fff;
+        }
+
+        .results-hero {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-bottom: 60px;
+        }
+
+        .result-card {
+            background: var(--gradient-primary);
+            color: #fff;
+            border-radius: 20px;
+            padding: 36px 28px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .result-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+        }
+
+        .result-card .metric {
+            font-size: 0.85rem;
             opacity: 0.9;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .result-card .value {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .result-card .delta {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 4px 12px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
         }
 
         .results-table-wrapper {
             overflow-x: auto;
-            margin: 0 auto;
-            max-width: 800px;
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border);
         }
 
         .results-table {
             width: 100%;
             border-collapse: collapse;
             font-size: 0.95rem;
-            background: #fff;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: var(--shadow);
         }
 
         .results-table thead {
-            background: var(--bg-code);
+            background: var(--bg-dark);
             color: #fff;
         }
 
         .results-table th {
-            padding: 16px 20px;
+            padding: 20px 24px;
             text-align: left;
             font-weight: 600;
             font-size: 0.85rem;
@@ -340,12 +745,16 @@
         }
 
         .results-table td {
-            padding: 16px 20px;
+            padding: 18px 24px;
             border-bottom: 1px solid var(--border);
         }
 
+        .results-table tbody tr {
+            transition: background 0.2s ease;
+        }
+
         .results-table tbody tr:hover {
-            background: #f8f9fa;
+            background: var(--bg-light);
         }
 
         .results-table tbody tr:last-child td {
@@ -353,12 +762,12 @@
         }
 
         .results-table .highlight-row {
-            background: #e8f4fd !important;
-            font-weight: 600;
+            background: rgba(99,102,241,0.08) !important;
         }
 
         .results-table .highlight-row td {
             color: var(--primary-dark);
+            font-weight: 600;
         }
 
         .results-table .best {
@@ -367,71 +776,60 @@
         }
 
         .results-table .improvement {
-            background: #d4edda;
-            color: #155724;
-            padding: 4px 8px;
-            border-radius: 4px;
+            display: inline-block;
+            background: rgba(16,185,129,0.15);
+            color: var(--success);
+            padding: 4px 10px;
+            border-radius: 50px;
             font-size: 0.8rem;
             font-weight: 600;
             margin-left: 8px;
+        }
+
+        .method-tag {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-left: 8px;
+        }
+
+        .method-tag.ours {
+            background: var(--gradient-primary);
+            color: #fff;
         }
 
         /* ===== FIGURES ROW ===== */
         .figures-row {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 32px;
-            margin-top: 48px;
+            gap: 40px;
+            margin-top: 60px;
         }
 
         .figure-item {
-            text-align: center;
+            background: var(--bg-light);
+            border-radius: 16px;
+            padding: 24px;
         }
 
         .figure-item img {
             width: 100%;
-            border-radius: 8px;
+            border-radius: 12px;
             box-shadow: var(--shadow);
         }
 
         .figure-item figcaption {
-            margin-top: 12px;
-            font-size: 0.85rem;
+            margin-top: 16px;
+            font-size: 0.9rem;
             color: var(--text-muted);
-        }
-
-        /* ===== BIBTEX ===== */
-        .bibtex-wrapper {
-            max-width: 700px;
-            margin: 0 auto;
-        }
-
-        .bibtex-code {
-            background: var(--bg-code);
-            color: #e2e8f0;
-            padding: 24px;
-            border-radius: 12px;
-            font-family: 'Monaco', 'Menlo', monospace;
-            font-size: 0.85rem;
-            line-height: 1.6;
-            overflow-x: auto;
-            position: relative;
-        }
-
-        .bibtex-code::before {
-            content: 'BibTeX';
-            position: absolute;
-            top: 8px;
-            right: 12px;
-            font-size: 0.7rem;
-            color: #718096;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            text-align: center;
         }
 
         /* ===== FOOTER ===== */
         footer {
-            padding: 40px 0;
+            padding: 60px 0;
             text-align: center;
             background: var(--bg-light);
             border-top: 1px solid var(--border);
@@ -440,6 +838,7 @@
         footer p {
             font-size: 0.9rem;
             color: var(--text-muted);
+            margin-bottom: 8px;
         }
 
         footer a {
@@ -447,17 +846,51 @@
             text-decoration: none;
         }
 
+        footer a:hover {
+            text-decoration: underline;
+        }
+
         /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .highlights-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .dataset-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .scene-types {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
         @media (max-width: 768px) {
+            nav .nav-links {
+                display: none;
+            }
+
             .hero {
-                padding: 60px 0 40px;
+                padding: 120px 0 60px;
             }
 
             .hero h1 {
-                font-size: 1.75rem;
+                font-size: 2rem;
+            }
+
+            .hero .subtitle {
+                font-size: 1rem;
+            }
+
+            .highlights-grid {
+                grid-template-columns: 1fr 1fr;
             }
 
             .method-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .motivation-grid {
                 grid-template-columns: 1fr;
             }
 
@@ -465,8 +898,12 @@
                 grid-template-columns: 1fr;
             }
 
-            .results-highlight .big-number {
-                font-size: 2.5rem;
+            .results-hero {
+                grid-template-columns: 1fr;
+            }
+
+            .scene-types {
+                grid-template-columns: repeat(2, 1fr);
             }
 
             .btn-group {
@@ -476,19 +913,53 @@
 
             .btn {
                 width: 100%;
-                max-width: 280px;
+                max-width: 300px;
                 justify-content: center;
             }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+
+        /* ===== ANIMATIONS ===== */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-in {
+            animation: fadeInUp 0.6s ease-out forwards;
         }
     </style>
 </head>
 <body>
 
-    <!-- ===== HEADER ===== -->
+    <!-- ===== NAVIGATION ===== -->
+    <nav>
+        <div class="container">
+            <a href="#" class="nav-logo">PL-DPO-NLL</a>
+            <ul class="nav-links">
+                <li><a href="#abstract">Abstract</a></li>
+                <li><a href="#method">Method</a></li>
+                <li><a href="#dataset">Dataset</a></li>
+                <li><a href="#results">Results</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- ===== HERO ===== -->
     <header class="hero">
         <div class="container">
-            <span class="venue">RA-L 2025</span>
-            <h1>Safety-Aligned Autonomous Driving via Plackett-Luce Preference Learning with NLL Regularization</h1>
+            <span class="venue"><i class="fas fa-award"></i> RA-L 2025</span>
+            <h1>Safety-Aligned Autonomous Driving via Plackett-Luce Preference Learning</h1>
+            <p class="subtitle">A preference learning framework that prevents probability collapse and learns fine-grained safety distinctions for end-to-end driving.</p>
             <p class="authors">Anonymous Authors</p>
             <p class="affiliations">Anonymous Institution</p>
 
@@ -506,75 +977,222 @@
         </div>
     </header>
 
+    <!-- ===== KEY HIGHLIGHTS ===== -->
+    <section class="highlights">
+        <div class="container">
+            <div class="highlights-grid">
+                <div class="highlight-card">
+                    <div class="number">+8.4%</div>
+                    <div class="label">Driving Score Improvement</div>
+                </div>
+                <div class="highlight-card">
+                    <div class="number">65.9%</div>
+                    <div class="label">Route Completion</div>
+                </div>
+                <div class="highlight-card">
+                    <div class="number">51K</div>
+                    <div class="label">Preference Samples</div>
+                </div>
+                <div class="highlight-card">
+                    <div class="number">7</div>
+                    <div class="label">Scene Types</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- ===== TEASER ===== -->
     <section class="teaser">
         <div class="container">
-            <img src="assets/figures/framework.png" alt="PL-DPO-NLL Framework" class="teaser-img">
-            <p class="teaser-caption">
-                <strong>Figure 1:</strong> Overview of our PL-DPO-NLL framework. We introduce Plackett-Luce ranking for multi-level safety preferences and NLL regularization to prevent probability collapse. The training pipeline processes multimodal inputs through frozen visual encoders, with only the LoRA adapter being trainable.
-            </p>
+            <div class="teaser-wrapper">
+                <img src="assets/figures/framework.png" alt="PL-DPO-NLL Framework" class="teaser-img">
+                <p class="teaser-caption">
+                    <strong>Overview of PL-DPO-NLL Framework.</strong> We introduce Plackett-Luce ranking for multi-level safety preferences and NLL regularization to prevent probability collapse. The training pipeline processes multimodal inputs through frozen visual encoders, with only the LoRA adapter being trainable.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== MOTIVATION ===== -->
+    <section class="motivation" id="motivation">
+        <div class="container">
+            <div class="motivation-grid">
+                <div class="motivation-content">
+                    <h3>Why Safety-Aligned Preference Learning?</h3>
+                    <p>Vision-Language-Action models show promise for end-to-end driving, but standard preference optimization faces critical challenges:</p>
+                    <ul class="problem-list">
+                        <li>
+                            <div class="icon danger"><i class="fas fa-chart-line-down"></i></div>
+                            <div class="text">
+                                <strong>Probability Collapse</strong>
+                                <span>DPO decreases the probability of safe actions during training, undermining the model's confidence in expert behaviors.</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="icon warning"><i class="fas fa-balance-scale"></i></div>
+                            <div class="text">
+                                <strong>Binary Limitations</strong>
+                                <span>Traditional pairwise comparisons cannot capture nuanced safety distinctions (safe → risky → critical).</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="motivation-visual">
+                    <img src="assets/figures/nll_ablation.png" alt="Probability Collapse Problem">
+                </div>
+            </div>
         </div>
     </section>
 
     <!-- ===== ABSTRACT ===== -->
-    <section id="abstract">
+    <section class="abstract" id="abstract">
         <div class="container">
-            <h2 class="section-title">Abstract</h2>
-            <p class="abstract-content">
-                Safe autonomous driving demands that learned policies maintain high confidence in safe actions, yet this critical property is often violated during preference-based training. Vision-Language-Action (VLA) models have emerged as promising end-to-end driving agents, but they struggle with safety alignment due to imbalanced training data and <em>probability collapse</em>, where the likelihood of safe actions decreases during optimization. We propose <strong>Plackett-Luce DPO with NLL Regularization (PL-DPO-NLL)</strong>, a preference learning framework for safety-aligned driving. Our method introduces three synergistic innovations: (1) Plackett-Luce multi-preference ranking that learns from multiple rejected actions ranked by risk severity, (2) scene-adaptive β weighting that amplifies gradients for critical scenarios, and (3) NLL regularization that explicitly maintains chosen action probability. On CARLA closed-loop benchmark, PL-DPO-NLL achieves <strong>8.4% improvement</strong> in driving score with the highest route completion (65.9%) and infraction penalty (89.1%), outperforming DPO variants including IPO, EXO, BCO, and SPPO.
-            </p>
+            <div class="section-header">
+                <span class="section-tag">Abstract</span>
+                <h2 class="section-title">Research Summary</h2>
+            </div>
+            <div class="abstract-card">
+                <p class="abstract-content">
+                    Safe autonomous driving demands that learned policies maintain high confidence in safe actions, yet this critical property is often violated during preference-based training. Vision-Language-Action (VLA) models have emerged as promising end-to-end driving agents, but they struggle with safety alignment due to imbalanced training data and <em>probability collapse</em>, where the likelihood of safe actions decreases during optimization. We propose <strong>Plackett-Luce DPO with NLL Regularization (PL-DPO-NLL)</strong>, a preference learning framework for safety-aligned driving. Our method introduces three synergistic innovations: (1) Plackett-Luce multi-preference ranking that learns from multiple rejected actions ranked by risk severity, (2) scene-adaptive β weighting that amplifies gradients for critical scenarios, and (3) NLL regularization that explicitly maintains chosen action probability. On CARLA closed-loop benchmark, PL-DPO-NLL achieves <strong>8.4% improvement</strong> in driving score with the highest route completion (65.9%) and infraction penalty (89.1%), outperforming DPO variants including IPO, EXO, BCO, and SPPO.
+                </p>
+            </div>
         </div>
     </section>
 
     <!-- ===== METHODOLOGY ===== -->
-    <section id="method">
+    <section class="methodology" id="method">
         <div class="container">
-            <h2 class="section-title">Methodology</h2>
+            <div class="section-header">
+                <span class="section-tag">Methodology</span>
+                <h2 class="section-title">Three Key Innovations</h2>
+                <p class="section-subtitle">Our framework combines three synergistic components for safety-aligned preference learning.</p>
+            </div>
 
             <div class="method-grid">
                 <div class="method-card">
+                    <span class="step">1</span>
                     <div class="icon">
                         <i class="fas fa-sort-amount-down"></i>
                     </div>
                     <h3>Plackett-Luce Ranking</h3>
-                    <p>Learning from ranked rejected actions (Safe → Risky → Critical) instead of binary pairs, enabling fine-grained safety distinctions across 7 scene types.</p>
-                    <span class="gain">+4.0% gain</span>
+                    <p>Learn from ranked rejected actions (Safe → Risky → Critical) instead of binary pairs, enabling fine-grained safety distinctions across 7 scene types.</p>
+                    <span class="gain"><i class="fas fa-arrow-up"></i> +4.0% gain</span>
                 </div>
 
                 <div class="method-card">
+                    <span class="step">2</span>
                     <div class="icon">
                         <i class="fas fa-sliders-h"></i>
                     </div>
                     <h3>Scene-Adaptive β</h3>
-                    <p>Dynamically amplifying gradients for critical scenarios (β=0.35 for red lights vs. β=0.12 for normal driving), prioritizing safety-critical learning.</p>
-                    <span class="gain">+1.0% gain</span>
+                    <p>Dynamically amplify gradients for critical scenarios (β=0.35 for red lights vs. β=0.12 for normal driving), prioritizing safety-critical learning.</p>
+                    <span class="gain"><i class="fas fa-arrow-up"></i> +1.0% gain</span>
                 </div>
 
                 <div class="method-card">
+                    <span class="step">3</span>
                     <div class="icon">
                         <i class="fas fa-anchor"></i>
                     </div>
                     <h3>NLL Regularization</h3>
-                    <p>Anchoring chosen action probability to prevent probability collapse, ensuring the model maintains high confidence in expert demonstrations.</p>
-                    <span class="gain">+4.4% gain</span>
+                    <p>Anchor chosen action probability to prevent collapse, ensuring the model maintains high confidence in expert demonstrations.</p>
+                    <span class="gain"><i class="fas fa-arrow-up"></i> +4.4% gain</span>
                 </div>
             </div>
 
             <figure class="method-figure">
                 <img src="assets/figures/nll_ablation.png" alt="NLL Weight Ablation">
-                <figcaption><strong>Figure 2:</strong> Effect of NLL weight λ on driving performance. λ=0.1 achieves optimal balance between preference learning and likelihood maximization. Larger values cause NLL to dominate, suppressing the preference signal.</figcaption>
+                <figcaption><strong>Effect of NLL weight λ on driving performance.</strong> λ=0.1 achieves optimal balance between preference learning and likelihood maximization. Larger values cause NLL to dominate, suppressing the preference signal.</figcaption>
             </figure>
         </div>
     </section>
 
-    <!-- ===== RESULTS ===== -->
-    <section id="results">
+    <!-- ===== DATASET ===== -->
+    <section class="dataset" id="dataset">
         <div class="container">
-            <h2 class="section-title">Main Results</h2>
+            <div class="section-header">
+                <span class="section-tag">Dataset</span>
+                <h2 class="section-title">Plackett-Luce Preference Dataset</h2>
+                <p class="section-subtitle">51K multi-preference samples covering diverse driving scenarios.</p>
+            </div>
 
-            <div class="results-highlight">
-                <div class="big-number">+8.4%</div>
-                <div class="label">Improvement in Driving Score over SFT Baseline</div>
+            <div class="dataset-stats">
+                <div class="stat-card">
+                    <div class="number">51,124</div>
+                    <div class="label">Total Samples</div>
+                </div>
+                <div class="stat-card">
+                    <div class="number">7</div>
+                    <div class="label">Scene Types</div>
+                </div>
+                <div class="stat-card">
+                    <div class="number">2-3</div>
+                    <div class="label">Rejected Actions per Sample</div>
+                </div>
+                <div class="stat-card">
+                    <div class="number">0.12-0.40</div>
+                    <div class="label">Adaptive β Range</div>
+                </div>
+            </div>
+
+            <div class="scene-types">
+                <div class="scene-badge">
+                    <div class="name">Turn</div>
+                    <div class="percent">40.2%</div>
+                </div>
+                <div class="scene-badge">
+                    <div class="name">Normal</div>
+                    <div class="percent">27.8%</div>
+                </div>
+                <div class="scene-badge">
+                    <div class="name">Should Brake</div>
+                    <div class="percent">14.7%</div>
+                </div>
+                <div class="scene-badge">
+                    <div class="name">Should Slow</div>
+                    <div class="percent">6.0%</div>
+                </div>
+                <div class="scene-badge">
+                    <div class="name">Junction</div>
+                    <div class="percent">5.6%</div>
+                </div>
+                <div class="scene-badge">
+                    <div class="name">Pedestrian</div>
+                    <div class="percent">3.1%</div>
+                </div>
+                <div class="scene-badge">
+                    <div class="name">Red Light</div>
+                    <div class="percent">2.7%</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== RESULTS ===== -->
+    <section class="results" id="results">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Experiments</span>
+                <h2 class="section-title">Main Results</h2>
+                <p class="section-subtitle">Comprehensive evaluation on CARLA closed-loop driving benchmark.</p>
+            </div>
+
+            <div class="results-hero">
+                <div class="result-card">
+                    <div class="metric">Driving Score</div>
+                    <div class="value">58.26</div>
+                    <span class="delta">+8.4% vs SFT</span>
+                </div>
+                <div class="result-card">
+                    <div class="metric">Route Completion</div>
+                    <div class="value">65.9%</div>
+                    <span class="delta">Best among all</span>
+                </div>
+                <div class="result-card">
+                    <div class="metric">Infraction Penalty</div>
+                    <div class="value">0.891</div>
+                    <span class="delta">Highest safety</span>
+                </div>
             </div>
 
             <div class="results-table-wrapper">
@@ -625,13 +1243,13 @@
                             <td>0.877</td>
                         </tr>
                         <tr>
-                            <td>PL-DPO (Ours)</td>
+                            <td>PL-DPO <span class="method-tag ours">Ours</span></td>
                             <td>55.87</td>
                             <td>64.0%</td>
                             <td>0.880</td>
                         </tr>
                         <tr class="highlight-row">
-                            <td><strong>PL-DPO-NLL (Ours)</strong></td>
+                            <td><strong>PL-DPO-NLL</strong> <span class="method-tag ours">Ours</span></td>
                             <td class="best">58.26 <span class="improvement">+8.4%</span></td>
                             <td class="best">65.9%</td>
                             <td class="best">0.891</td>
@@ -643,29 +1261,12 @@
             <div class="figures-row">
                 <figure class="figure-item">
                     <img src="assets/figures/training_curves.png" alt="Training Curves">
-                    <figcaption><strong>Figure 3:</strong> Training loss curves for all preference learning methods, showing stable convergence.</figcaption>
+                    <figcaption><strong>Training loss curves</strong> for all preference learning methods, showing stable convergence.</figcaption>
                 </figure>
                 <figure class="figure-item">
                     <img src="assets/figures/reward_margins.png" alt="Reward Margins">
-                    <figcaption><strong>Figure 4:</strong> Reward margin comparison between DPO variants during training.</figcaption>
+                    <figcaption><strong>Reward margin comparison</strong> between DPO variants during training.</figcaption>
                 </figure>
-            </div>
-        </div>
-    </section>
-
-    <!-- ===== BIBTEX ===== -->
-    <section id="bibtex">
-        <div class="container">
-            <h2 class="section-title">BibTeX</h2>
-            <div class="bibtex-wrapper">
-                <pre class="bibtex-code">@article{anonymous2025pldponll,
-  title     = {Safety-Aligned Autonomous Driving via Plackett-Luce
-               Preference Learning with NLL Regularization},
-  author    = {Anonymous},
-  journal   = {IEEE Robotics and Automation Letters},
-  year      = {2025},
-  note      = {Under Review}
-}</pre>
             </div>
         </div>
     </section>
@@ -674,7 +1275,7 @@
     <footer>
         <div class="container">
             <p>This page is for anonymous review. Author information will be added upon acceptance.</p>
-            <p style="margin-top: 8px;">Template inspired by <a href="https://nerfies.github.io/" target="_blank">Nerfies</a>.</p>
+            <p>Template inspired by <a href="https://nerfies.github.io/" target="_blank">Nerfies</a>.</p>
         </div>
     </footer>
 
