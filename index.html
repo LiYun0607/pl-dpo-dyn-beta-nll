@@ -1067,6 +1067,7 @@
         <div class="container">
             <a href="#" class="nav-logo">PL-DPO-NLL</a>
             <ul class="nav-links">
+                <li><a href="#videos">Videos</a></li>
                 <li><a href="#abstract">Abstract</a></li>
                 <li><a href="#method">Method</a></li>
                 <li><a href="#dataset">Dataset</a></li>
@@ -1108,6 +1109,58 @@
                 <img src="assets/figures/framework.png" alt="PL-DPO-NLL Framework" class="teaser-img">
                 <p class="teaser-caption">
                     <strong>Overview of our PL-DPO-NLL framework.</strong> <em>Top:</em> The inference pipeline processes multimodal inputs via frozen visual encoders and fuses them for the LLaMA-7B planner, which utilizes a trainable LoRA adapter while keeping base weights frozen. <em>Bottom:</em> The training process comprises five components: (a) Plackett-Luce dataset with risk-ranked actions; (b) scene-adaptive &beta; weighting; (c) NLL regularization, visually illustrated as maintaining a high-confidence probability distribution (red peak) against probability collapse (green flattened distribution); (d) PL-DPO ranking loss; and (e) the combined total loss.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== VIDEO DEMOS ===== -->
+    <section class="video-demos" id="videos" style="padding: 80px 0; background: #fff;">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Demonstrations</span>
+                <h2 class="section-title">Video Comparisons</h2>
+                <p class="section-subtitle">Side-by-side comparison of PL-DPO-NLL (Ours) vs Baseline SFT in CARLA simulation.</p>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 32px;">
+                <!-- Video 1: SFT gets stuck -->
+                <div style="background: var(--bg-light); border-radius: 20px; padding: 24px; box-shadow: var(--shadow);">
+                    <video controls style="width: 100%; border-radius: 12px; margin-bottom: 16px;">
+                        <source src="assets/videos/comparison_scenario_02.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <h4 style="color: var(--text-dark); font-size: 1.1rem; margin-bottom: 8px;">
+                        <i class="fas fa-check-circle" style="color: var(--success); margin-right: 8px;"></i>
+                        Scenario 1: Navigation Robustness
+                    </h4>
+                    <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.6;">
+                        <strong>Left (PL-DPO-NLL):</strong> Successfully completes the route.<br>
+                        <strong>Right (Baseline SFT):</strong> Gets stuck and fails to proceed, demonstrating probability collapse in action.
+                    </p>
+                </div>
+
+                <!-- Video 2: SFT poor trajectory following -->
+                <div style="background: var(--bg-light); border-radius: 20px; padding: 24px; box-shadow: var(--shadow);">
+                    <video controls style="width: 100%; border-radius: 12px; margin-bottom: 16px;">
+                        <source src="assets/videos/comparison_scenario_11.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <h4 style="color: var(--text-dark); font-size: 1.1rem; margin-bottom: 8px;">
+                        <i class="fas fa-route" style="color: var(--primary); margin-right: 8px;"></i>
+                        Scenario 2: Trajectory Following
+                    </h4>
+                    <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.6;">
+                        <strong>Left (PL-DPO-NLL):</strong> Follows the planned route efficiently.<br>
+                        <strong>Right (Baseline SFT):</strong> Deviates from the intended trajectory with lower traffic efficiency.
+                    </p>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 32px; padding: 20px; background: rgba(99,102,241,0.08); border-radius: 12px;">
+                <p style="color: var(--text-dark); font-size: 0.95rem; margin: 0;">
+                    <i class="fas fa-info-circle" style="color: var(--primary); margin-right: 8px;"></i>
+                    <strong>Layout:</strong> Left side shows <span style="color: var(--primary); font-weight: 600;">PL-DPO-NLL (Ours)</span>, Right side shows <span style="color: var(--text-muted);">Baseline (SFT)</span>
                 </p>
             </div>
         </div>
